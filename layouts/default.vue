@@ -4,33 +4,7 @@
 
 <script>
 export default {
-  computed: {
-    isMobile: {
-      get() {
-        return this.$store.state.dataview.isMobile;
-      },
-      set(value) {
-        this.$store.commit('dataview/changeIsMobile', value);
-      },
-    },
-  },
 
-  beforeDestroy() {
-    if (typeof window !== 'undefined') {
-      window.removeEventListener('resize', this.onResize, { passive: true });
-    }
-  },
-
-  mounted() {
-    this.onResize();
-    window.addEventListener('resize', this.onResize, { passive: true });
-  },
-
-  methods: {
-    onResize() {
-      // this.isMobile = window.innerWidth < 800;
-    },
-  },
 };
 </script>
 

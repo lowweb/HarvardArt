@@ -20,6 +20,7 @@
           People:
         </div>
         <h2 class="remark__text">
+          <!-- data.people.lenght -->
           {{ (data.people) ? data.people[0].displayname : 'unknown' }}
         </h2>
       </div>

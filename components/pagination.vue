@@ -8,11 +8,11 @@
       Prev
     </button>
 
-    <div v-if="isMobile && totalPages != 0" class="pagination__info">
+    <div v-if="totalPages != 0" class="pagination__info">
       {{ currentPage }} из {{ totalPages }}
     </div>
 
-    <ul v-if="!isMobile && totalPages != 0" class="pagination__nav">
+    <ul v-if="totalPages != 0" class="pagination__nav">
       <li v-if="rangeStart != 1" class="pagination__nav-item">
         <button class="btn" @click="changePage(1)">
           1
@@ -63,7 +63,7 @@ export default {
 
   computed: {
     ...mapState(
-      'dataview', ['totalPages', 'isMobile'],
+      'dataview', ['totalPages'],
     ),
 
     currentPage: {
@@ -153,6 +153,9 @@ export default {
       grid-area: nav;
       align-items: center;
       justify-content: center;
+      @media screen and (min-width: 800px) {
+        display: none;
+      }
   }
 
   &__nav {
@@ -160,6 +163,9 @@ export default {
       grid-area: nav;
       justify-content: center;
       list-style: none;
+      @media screen and (max-width: 800px) {
+        display: none;
+      }
   }
 
   &__nav-item {

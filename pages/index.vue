@@ -2,20 +2,16 @@
   <div class="wrap">
     <h1>Harvard Art Museums</h1>
     <Pagination :page-range="2" />
-    <TableView v-if="!isMobile" :data="pageData.records" :fetch-state="$fetchState" />
-    <ListView v-if="isMobile" :data="pageData.records" :fetch-state="$fetchState" />
+    <ListView :data="pageData.records" :fetch-state="$fetchState" />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import TableView from '~/components/tableView.vue';
 import ListView from '~/components/listView.vue';
 import Pagination from '~/components/pagination.vue';
 
 export default {
   components: {
-    TableView,
     ListView,
     Pagination,
   },
@@ -52,13 +48,7 @@ export default {
       store.commit('dataview/fillTotalPages', this.pageData.info.pages);
     }
   },
-  // fetchOnServer: false,
 
-  computed: {
-    ...mapState(
-      'dataview', ['isMobile'],
-    ),
-  },
 };
 </script>
 
