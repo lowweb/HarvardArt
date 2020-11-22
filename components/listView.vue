@@ -28,6 +28,12 @@
             class="listView__item-img"
           >
           <div v-if="(item.primaryimageurl) == null" class="listView__item--noimg" />
+          <div class="listView__item-cap">
+            {{ item.title }}
+          </div>
+          <div class="listView__item-meta">
+            {{ item.totaluniquepageviews }}
+          </div>
         </li>
       </ul>
     </template>
@@ -63,7 +69,7 @@ export default {
 .listView {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px;
+  gap: 20px;
    @media only screen and (max-width: 780px) {
      grid-template-columns: 1fr 1fr;
   }
@@ -72,17 +78,52 @@ export default {
   }
 
   &__item {
+    display: flex;
+    flex-direction: column;
     min-height: 150px;
     overflow: hidden;
     list-style: none;
-    background-color: #f3f3f3;
+    background-color: #ffe66e;
+    border-radius: 1rem;
+    box-shadow: -9px -9px 16px #f8fafe, 9px 9px 16px #ced2db;
     cursor: pointer;
-    transition: transform .2s ease-in-out;
+    // transition: transform .2s ease-in-out;
+
+    &:nth-child(2n) {
+      background-color: #caafe8;
+    }
+    &:nth-child(5n) {
+      background-color: #7bd1a1;
+    }
 
     &:hover {
-      box-shadow: -9px -9px 16px #f8fafe, 9px 9px 16px #ced2db;
-      transform: scale(1.03);
-      transition: transform .2s ease-in-out;
+      box-shadow: -4px -4px 8px #f8fafe, 4px 4px 8px #ced2db;
+      // transform: scale(1.03);
+      // transition: transform .2s ease-in-out;
+    }
+
+    &-cap {
+      flex: 1;
+      padding: 20px;
+      font-size: 25px;
+    }
+
+    &-meta {
+      display: flex;
+      align-items: center;
+      height: 25px;
+      padding: 20px;
+
+      &::before {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        content: url('../assets/view.svg');
+      }
+    }
+
+    &:hover &-cap {
+      color: #3d15b3;
     }
 
     &--noimg {
@@ -91,10 +132,11 @@ export default {
       align-items: center;
       justify-content: center;
       width: 100%;
-      height: 100%;
+      // height: 100%;
       min-height: 150px;
       color: #999999;
-      border: 1px solid #999999;
+      background-color: #ffffff;
+      // border: 1px solid #999999;
     }
 
     &--noimg:before {
@@ -104,7 +146,8 @@ export default {
 
     &-img {
       width: 100%;
-      height: 100%;
+      height: 200px;
+      // max-height: 150px;
       object-fit: cover;
 
     }
