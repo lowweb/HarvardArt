@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueLazyload from 'vue-lazyload';
 
 Vue.use(VueLazyload, {
-  preLoad: 1,
-  attempt: 1,
+  // eslint-disable-next-line global-require
+  // loading: require('~/assets/loader.svg'),
+  // preLoad: 1,
+  // attempt: 1,
 });

@@ -93,7 +93,7 @@ export default {
       background-color: #caafe8;
     }
     &:nth-child(5n) {
-      background-color: #7bd1a1;
+      background-color: #7be5ea;
     }
 
     &:hover {
@@ -127,31 +127,46 @@ export default {
     }
 
     &--noimg {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       width: 100%;
-      // height: 100%;
-      min-height: 150px;
-      color: #999999;
-      background-color: #ffffff;
-      // border: 1px solid #999999;
+      height: 200px;
+      background-color: #e2e2e2;
+      background-image: url('../assets/noimg.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 50%;
     }
-
-    &--noimg:before {
-        display: block;
-        content: 'no image';
-      }
 
     &-img {
       width: 100%;
       height: 200px;
       // max-height: 150px;
       object-fit: cover;
-
+      background-color: #e2e2e2;
     }
   }
 
+}
+
+.vue-content-placeholders-img {
+  width: 100%;
+  height: 330px;
+  border-radius: 1rem;
+}
+
+img[lazy=loading] {
+  width: 100%;
+  height: 200px;
+  background-image: url('../assets/loader.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+
+}
+
+img[lazy=error] {
+  width: 100%;
+  height: 200px;
+  background-image: url('../assets/noimg.png');
+  background-repeat: no-repeat;
+  background-position: center;
 }
 </style>

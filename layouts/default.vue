@@ -64,6 +64,7 @@ body {
   background-color: transparent;
   border: 1px solid #ffdb4d;
   border-radius: 3px;
+  cursor: pointer;
 
   &:hover, &:focus {
         background-color: #ffdb4d;
