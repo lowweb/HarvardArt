@@ -13,7 +13,7 @@
         </content-placeholders>
       </div>
     </template>
-    <template v-if="!fetchState.pending && !fetchState.pending && Object.keys(data).length">
+    <template v-if="Object.keys(data).length && !fetchState.pending">
       <ul class="listView">
         <li
           v-for="(item, index) in data"
@@ -151,22 +151,5 @@ export default {
   width: 100%;
   height: 330px;
   border-radius: 1rem;
-}
-
-img[lazy=loading] {
-  width: 100%;
-  height: 200px;
-  background-image: url('../assets/loader.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-
-}
-
-img[lazy=error] {
-  width: 100%;
-  height: 200px;
-  background-image: url('../assets/noimg.png');
-  background-repeat: no-repeat;
-  background-position: center;
 }
 </style>

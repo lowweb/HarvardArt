@@ -3,7 +3,7 @@
     <button
       v-show="totalPages > 0 && currentPage > 1"
       class="pagination__left btn"
-      @click="prevPage"
+      @click="getPevPage"
     >
       Prev
     </button>
@@ -43,7 +43,7 @@
     <button
       v-show="currentPage < totalPages"
       class="pagination__right btn"
-      @click="nextPage"
+      @click="getNextPage"
     >
       Next
     </button>
@@ -68,7 +68,7 @@ export default {
 
     currentPage: {
       get() {
-        return parseInt(this.$store.state.dataview.currentPage, 10);
+        return Number(this.$store.state.dataview.currentPage);
       },
       set(value) {
         this.$store.commit('dataview/changePage', value);
@@ -95,7 +95,7 @@ export default {
   },
 
   methods: {
-    prevPage() {
+    getPevPage() {
       this.currentPage -= 1;
       if (this.currentPage === 1) {
         this.$router.push('/');
@@ -107,7 +107,7 @@ export default {
       }
     },
 
-    nextPage() {
+    getNextPage() {
       this.currentPage += 1;
       this.$router.push({
         name: 'page-id',

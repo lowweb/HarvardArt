@@ -10,8 +10,8 @@ export default {
 
 <style lang="scss">
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -90,6 +90,23 @@ body {
     animation-iteration-count: infinite;
     animation-fill-mode: forwards;
   }
+}
+
+img[lazy=loading] {
+  width: 100%;
+  height: 200px;
+  background-image: url('../assets/loader.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+
+}
+
+img[lazy=error] {
+  width: 100%;
+  height: 200px;
+  background-image: url('../assets/noimg.png');
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 @keyframes placeHolderShimmer {

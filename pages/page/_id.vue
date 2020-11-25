@@ -40,12 +40,24 @@ export default {
         return res.json();
       })
       .catch((e) => {
-        error({ statusCode: e.response.status, message: e.message });
+        error({ statusCode: e.status, message: e.message });
       });
 
     this.pageData = data;
-    if (this.totalPages === 0) {
+
+    // если API вернул ответ с ключом error
+    if (this.pageData.error) {
+      this.pageData = {};
+      error({ statusCode: 404, message: 'Page Not Found' });
+    }
+
+    // заполняем поле "всего страниц" при загрузке начальной страницы или если перешли вручную на нужную
+    if (Object.keys(this.pageData).length !== 0 && (this.totalPages === 0 || this.totalPages === undefined)) {
       store.commit('dataview/fillTotalPages', this.pageData.info.pages);
+    }
+
+    // если ввели в url вручную номер страницы
+    if (route.params.id > 0) {
       store.commit('dataview/changePage', route.params.id);
     }
 

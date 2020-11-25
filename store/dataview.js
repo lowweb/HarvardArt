@@ -8,7 +8,7 @@ export const mutations = {
     state.totalPages = value;
   },
   changePage(state, value) {
-    state.currentPage = value;
+    state.currentPage = Number(value);
   },
 
 };

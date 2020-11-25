@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <button class="btn btn--fit" name="toIndex" @click="toPrevPage">
+    <button class="btn btn--fit" name="toIndex" @click="goToPrevPage">
       Назад
     </button>
     <ItemInfo :data="itemData" :fetch-state="$fetchState" />
@@ -44,10 +44,8 @@ export default {
     }
   },
 
-  fetchOnServer: false,
-
   methods: {
-    toPrevPage() {
+    goToPrevPage() {
       if (this.$store.state.dataview.currentPage === 1) {
         this.$router.push('/');
       } else {

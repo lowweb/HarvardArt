@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import getFetch from '@/function/fetch';
 import ListView from '~/components/listView.vue';
 import Pagination from '~/components/pagination.vue';
 
@@ -22,8 +24,8 @@ export default {
   },
 
   async fetch() {
-    const { store, error } = this.$nuxt.context;
-
+    const { store, route, error } = this.$nuxt.context;
+    // this.pageData = await getFetch(store, route, error, this.totalPage);
     const data = await fetch('https://api.harvardartmuseums.org/object?q=totalpageviews:50&size=15&apikey=592a2829-b138-41ed-a9c0-84a7feffd16b')
       .then((res) => {
         if (res.status !== 200) {
@@ -44,9 +46,29 @@ export default {
       error({ statusCode: 404, message: 'Page Not Found' });
     }
 
-    if (Object.keys(this.pageData).length !== 0) {
+    if (Object.keys(this.pageData).length !== 0
+    && (this.totalPages === 0 || this.totalPages === undefined)) {
       store.commit('dataview/fillTotalPages', this.pageData.info.pages);
     }
+
+    // если ввели в url вручную номер страницы
+    if (route.params.id > 0) {
+      store.commit('dataview/changePage', route.params.id);
+    }
+    const lg = await getFetch();
+    // eslint-disable-next-line no-console
+    console.log(lg);
+    // если в url передали страницу больше/меньше чем есть
+    if (this.pageData.info.page > this.pageData.info.pages || route.params.id < 1) {
+      store.commit('dataview/fillTotalPages', 0);
+      store.commit('dataview/changePage', 1);
+      error({ statusCode: 404 });
+    }
+  },
+  computed: {
+    ...mapState(
+      'dataview', ['totalPages'],
+    ),
   },
 
 };

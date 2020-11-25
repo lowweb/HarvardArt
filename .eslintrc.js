@@ -15,7 +15,7 @@ module.exports = {
   ],
   rules: {
     // 'no-console': 'off',
-
+    'max-len': [2, { "code": 120, "comments": 200, "ignoreUrls": true }],
     // disable import in component
     'import/no-extraneous-dependencies': 'off',
     "import/no-unresolved": 'off',

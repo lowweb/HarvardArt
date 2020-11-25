@@ -20,8 +20,7 @@
           People:
         </div>
         <h2 class="remark__text">
-          <!-- data.people.lenght -->
-          {{ (data.people) ? data.people[0].displayname : 'unknown' }}
+          {{ (data.peoplecount > 0) ? data.people[0].displayname : 'unknown' }}
         </h2>
       </div>
       <div class="remark">
@@ -33,7 +32,7 @@
         </div>
       </div>
       <img
-        :src="(data.primaryimageurl) != null ? data.primaryimageurl : noImgSrc"
+        v-lazy="(data.primaryimageurl) != null ? data.primaryimageurl : noImgSrc"
         alt="exhibit img"
         class="iteminfo__img"
       >
