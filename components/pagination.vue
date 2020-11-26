@@ -63,12 +63,15 @@ export default {
 
   computed: {
     ...mapState(
-      'dataview', ['totalPages'],
+      'dataview', {
+        totalPages: 'totalPages',
+        currPage: 'currentPage',
+      },
     ),
 
     currentPage: {
       get() {
-        return Number(this.$store.state.dataview.currentPage);
+        return Number(this.currPage);
       },
       set(value) {
         this.$store.commit('dataview/changePage', value);

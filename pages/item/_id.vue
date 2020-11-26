@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import getFetch from '@/function/fetch';
 import ItemInfo from '~/components/itemInfo.vue';
 
 export default {
@@ -23,37 +25,29 @@ export default {
 
   async fetch() {
     const { route, error } = this.$nuxt.context;
-    const data = await fetch(`https://api.harvardartmuseums.org/object/${route.params.id}?apikey=592a2829-b138-41ed-a9c0-84a7feffd16b`)
-      .then((res) => {
-        if (res.status !== 200) {
-          error({ statusCode: res.status, message: res.message });
-          return {};
-        }
-        return res.json();
-      })
-      .catch((e) => {
-        error({ statusCode: e.status, message: e.message });
-      });
-
+    const url = `https://api.harvardartmuseums.org/object/${route.params.id}?apikey=592a2829-b138-41ed-a9c0-84a7feffd16b`;
+    const data = await getFetch('item', url, undefined, route, error, undefined);
     this.itemData = data;
+  },
 
-    // если API вернул ответ с ключом error
-    if (this.itemData.error) {
-      this.itemData = {};
-      error({ statusCode: 404, message: 'Page Not Found' });
-    }
+  computed: {
+    ...mapState(
+      'dataview', ['currentPage'],
+    ),
   },
 
   methods: {
     goToPrevPage() {
-      if (this.$store.state.dataview.currentPage === 1) {
+      if (this.currentPage === 1) {
         this.$router.push('/');
       } else {
-        this.$router.push({ name: 'page-id', params: { id: this.$store.state.dataview.currentPage } });
+        this.$router.push({ name: 'page-id', params: { id: this.currentPage } });
       }
     },
   },
+
 };
+
 </script>
 
 <style lang="scss" scoped>

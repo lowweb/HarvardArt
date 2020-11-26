@@ -23,7 +23,7 @@
         >
           <img
             v-if="(item.primaryimageurl) != null"
-            v-lazy="item.primaryimageurl + '?width=' + imgWeight"
+            v-lazy="item.primaryimageurl + '?width=' + urlImgWeight"
             alt="exhibit img"
             class="listView__item-img"
           >
@@ -54,7 +54,7 @@ export default {
     },
   },
   data: () => ({
-    imgWeight: 150,
+    urlImgWeight: 150,
   }),
   methods: {
     openItem(id) {
@@ -123,7 +123,7 @@ export default {
     }
 
     &:hover &-cap {
-      color: #3d15b3;
+      color: #2150a9;
     }
 
     &--noimg {
