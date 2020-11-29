@@ -230,8 +230,8 @@ export default {
   }
 
   100% {
-    width: 500px;
-    height: 350px;
+    width: 200%;
+    height: 200%;
     border-radius: 0 0 0 0;
   }
 }
