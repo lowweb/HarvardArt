@@ -28,11 +28,13 @@
             class="listView__item-img"
           >
           <div v-if="(item.primaryimageurl) == null" class="listView__item--noimg" />
-          <div class="listView__item-cap">
-            {{ item.title }}
-          </div>
-          <div class="listView__item-meta">
-            {{ item.totaluniquepageviews }}
+          <div class="listView__info">
+            <div class="listView__item-cap" :hover-data="item.title">
+              {{ item.title }}
+            </div>
+            <div class="listView__item-meta">
+              {{ item.totaluniquepageviews }}
+            </div>
           </div>
         </li>
       </ul>
@@ -78,41 +80,85 @@ export default {
   }
 
   &__item {
+    position: relative;
     display: flex;
     flex-direction: column;
     min-height: 150px;
     overflow: hidden;
     list-style: none;
-    background-color: #ffe66e;
     border-radius: 1rem;
     box-shadow: -9px -9px 16px #f8fafe, 9px 9px 16px #ced2db;
     cursor: pointer;
-    // transition: transform .2s ease-in-out;
 
+    &::after {
+      position: absolute;
+      right: 10px;
+      bottom: 30px;
+      z-index: 3;
+      color: #ffffff;
+      opacity: 0;
+      transition: opacity 1s;
+      content: 'MORE INFO';
+    }
+    & .listView__info::before {
+      background-color: #ffe66e;
+
+    }
     &:nth-child(2n) {
-      background-color: #caafe8;
+      & .listView__info::before {
+        background-color: #caafe8;
+        animation-duration: 1.2s;
+      }
+
     }
     &:nth-child(5n) {
-      background-color: #7be5ea;
+      & .listView__info::before {
+        background-color: #7be5ea;
+        animation-duration: 1s;
+      }
     }
 
     &:hover {
       box-shadow: -4px -4px 8px #f8fafe, 4px 4px 8px #ced2db;
-      // transform: scale(1.03);
-      // transition: transform .2s ease-in-out;
+
+      &::before {
+        @media not (hover: hover) {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          z-index: 3;
+          background-color: #643bb5;
+          animation-name: more;
+          animation-duration: .5s;
+          animation-fill-mode: forwards;
+          content: '';
+        }
+
+      }
+      &::after {
+        @media not (hover: hover) {
+          opacity: 1;
+        }
+      }
+    }
+
+    &:hover &-cap {
+      color: #2150a9;
     }
 
     &-cap {
+      position: relative;
       flex: 1;
       padding: 20px;
       font-size: 25px;
+
     }
 
     &-meta {
+      z-index: 3;
       display: flex;
       align-items: center;
-      height: 25px;
-      padding: 20px;
+      padding: 15px 20px;
 
       &::before {
         width: 20px;
@@ -122,11 +168,8 @@ export default {
       }
     }
 
-    &:hover &-cap {
-      color: #2150a9;
-    }
-
     &--noimg {
+      z-index: 3;
       width: 100%;
       height: 200px;
       background-color: #e2e2e2;
@@ -137,16 +180,61 @@ export default {
     }
 
     &-img {
+      z-index: 3;
       width: 100%;
       height: 200px;
       // max-height: 150px;
       object-fit: cover;
       background-color: #e2e2e2;
     }
+
   }
 
+  &__info {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      animation-name: itemFilling;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+      content: '';
+    }
+  }
 }
 
+@keyframes more {
+  0% {
+    width: 0;
+    height: 0;
+    border-radius: 50% 50% 0 50%;
+  }
+
+  100% {
+    width: 100px;
+    height: 80px;
+    border-radius: 50% 50% 0 50%;
+  }
+}
+
+@keyframes itemFilling {
+  0% {
+    width: 0;
+    height: 0;
+    border-radius: 0% 80% 80% 80%;
+  }
+
+  100% {
+    width: 500px;
+    height: 350px;
+    border-radius: 0 0 0 0;
+  }
+}
 .vue-content-placeholders-img {
   width: 100%;
   height: 330px;

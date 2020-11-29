@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <h1>Harvard Art Museums</h1>
-    <Pagination :page-range="2" />
+    <Pagination :page-range="1" />
     <ListView :data="pageData.records" :fetch-state="$fetchState" />
   </div>
 </template>

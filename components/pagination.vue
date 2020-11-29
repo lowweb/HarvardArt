@@ -18,7 +18,7 @@
           1
         </button>
       </li>
-      <li v-if="rangeStart != 1" class="pagination__nav-item">
+      <li v-if="rangeStart > 2" class="pagination__nav-item">
         ⋯
       </li>
       <li
@@ -31,10 +31,10 @@
           {{ page }}
         </button>
       </li>
-      <li v-if="rangeEnd < totalPages" class="pagination__nav-item">
+      <li v-if="rangeEnd < totalPages - 1" class="pagination__nav-item">
         ⋯
       </li>
-      <li v-if="rangeEnd < totalPages" class="pagination__nav-item">
+      <li v-if="rangeEnd < totalPages " class="pagination__nav-item">
         <button class="btn" @click="changePage(totalPages)">
           {{ totalPages }}
         </button>
@@ -57,7 +57,7 @@ export default {
   props: {
     pageRange: {
       type: Number,
-      default: 2,
+      default: 1,
     },
   },
 
@@ -65,26 +65,35 @@ export default {
     ...mapState(
       'dataview', {
         totalPages: 'totalPages',
-        currPage: 'currentPage',
+        currentPage: 'currentPage',
       },
     ),
-
-    currentPage: {
-      get() {
-        return Number(this.currPage);
-      },
-      set(value) {
-        this.$store.commit('dataview/changePage', value);
-      },
+    rangeItems() {
+      return this.pageRange * 2;
+    },
+    itemCountLeft() {
+      return this.pageRange * 2 + 3;
     },
 
     rangeStart() {
       const start = this.currentPage - this.pageRange;
+      // if (this.currentPage + this.pageRange + 2 >= this.totalPages) {
+      //   start = this.totalPages - this.itemCountLeft + 1;
+      // }
       return (start > 0) ? start : 1;
     },
 
     rangeEnd() {
       const end = this.currentPage + this.pageRange;
+      if (end - this.rangeStart < this.rangeItems) {
+        return this.rangeStart + this.rangeItems;
+      }
+      // if (end < this.itemCountLeft) {
+      //   end = this.itemCountLeft;
+      // }
+      // if (this.currentPage + this.pageRange + 2 === this.totalPages) {
+      //   end += 1;
+      // }
       return (end < this.totalPages) ? end : this.totalPages;
     },
 
@@ -99,7 +108,8 @@ export default {
 
   methods: {
     getPevPage() {
-      this.currentPage -= 1;
+      // this.currentPage -= 1;
+      this.$store.commit('dataview/changePage', this.currentPage - 1);
       if (this.currentPage === 1) {
         this.$router.push('/');
       } else {
@@ -111,7 +121,7 @@ export default {
     },
 
     getNextPage() {
-      this.currentPage += 1;
+      this.$store.commit('dataview/changePage', this.currentPage + 1);
       this.$router.push({
         name: 'page-id',
         params: { id: this.currentPage },
@@ -119,7 +129,7 @@ export default {
     },
 
     changePage(value) {
-      this.currentPage = value;
+      this.$store.commit('dataview/changePage', value);
       if (this.currentPage === 1) {
         this.$router.push('/');
       } else {
@@ -182,5 +192,6 @@ export default {
       border: 1px solid #ffdb4d;
     }
   }
+
 }
 </style>
