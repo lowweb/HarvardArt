@@ -143,7 +143,7 @@ export default {
     }
 
     &:hover &-cap {
-      color: #2150a9;
+      color: #573c98;
     }
 
     &-cap {
