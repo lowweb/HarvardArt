@@ -2,19 +2,19 @@
   <div class="wrap">
     <h1>Harvard Art Museums</h1>
     <Pagination :page-range="1" />
-    <ListView :data="pageData.records" :fetch-state="$fetchState" />
+    <ItemsView :data="pageData.records" :fetch-state="$fetchState" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import getFetch from '@/function/fetch';
-import ListView from '~/components/listView.vue';
+import ItemsView from '~/components/itemsView.vue';
 import Pagination from '~/components/pagination.vue';
 
 export default {
   components: {
-    ListView,
+    ItemsView,
     Pagination,
   },
 

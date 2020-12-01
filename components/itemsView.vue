@@ -4,7 +4,7 @@
       Нет данных для отображения
     </div>
     <template v-if="fetchState.pending">
-      <div class="listView placeholder">
+      <div class="view placeholder">
         <content-placeholders
           v-for="p in 10"
           :key="p"
@@ -14,25 +14,25 @@
       </div>
     </template>
     <template v-if="Object.keys(data).length && !fetchState.pending">
-      <ul class="listView">
+      <ul class="view">
         <li
           v-for="(item, index) in data"
           :key="index"
-          class="listView__item"
+          class="view__item"
           @click="openItem(item.id)"
         >
           <img
             v-if="(item.primaryimageurl) != null"
             v-lazy="item.primaryimageurl + '?width=' + urlImgWeight"
             alt="exhibit img"
-            class="listView__item-img"
+            class="view__item-img"
           >
-          <div v-if="(item.primaryimageurl) == null" class="listView__item--noimg" />
-          <div class="listView__info">
-            <div class="listView__item-cap" :hover-data="item.title">
+          <div v-if="(item.primaryimageurl) == null" class="view__item--noimg" />
+          <div class="view__info">
+            <div class="view__item-cap" :hover-data="item.title">
               {{ item.title }}
             </div>
-            <div class="listView__item-meta">
+            <div class="view__item-meta">
               {{ item.totaluniquepageviews }}
             </div>
           </div>
@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style lang="scss">
-.listView {
+.view {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
@@ -100,19 +100,19 @@ export default {
       transition: opacity 1s;
       content: 'MORE INFO';
     }
-    & .listView__info::before {
+    & .view__info::before {
       background-color: #ffe66e;
 
     }
     &:nth-child(2n) {
-      & .listView__info::before {
+      & .view__info::before {
         background-color: #caafe8;
         animation-duration: 1.2s;
       }
 
     }
     &:nth-child(5n) {
-      & .listView__info::before {
+      & .view__info::before {
         background-color: #7be5ea;
         animation-duration: 1s;
       }
