@@ -1,6 +1,6 @@
 # HarvardArt
 
-> test Nuxt App
+> SPA app with AJAX(error handling), vue-router, vuex, cache pages, lazy loading for img
 
 https://harvard-art.vercel.app/
 
